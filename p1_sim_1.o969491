@@ -1,0 +1,130 @@
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+Loading required package: grid
+Loading required package: Matrix
+Loading required package: survival
+
+Attaching package: ‘survey’
+
+The following object is masked from ‘package:graphics’:
+
+    dotchart
+
+Loading required package: iterators
+Loading required package: parallel
+  ID S1 S2 Y1 Y2 Y3 Y4 X1 X2 X3 X4
+1 NA NA NA NA NA NA NA NA NA NA NA
+2 NA NA NA NA NA NA NA NA NA NA NA
+3 NA NA NA NA NA NA NA NA NA NA NA
+4 NA NA NA NA NA NA NA NA NA NA NA
+5 NA NA NA NA NA NA NA NA NA NA NA
+6 NA NA NA NA NA NA NA NA NA NA NA
+[1] -2.877312
+[1] 0.111719
+[1] 0.09693559
+[1] 0.5198609
+
+    0     1 
+25000 25000 
+
+    1     2     3     4     5     6     7     8     9    10 
+ 1000  1400  1800  2200  2600  3000  5000  8000 10000 15000 
+[1] 50000
+[1] 19.99268
+
+    0     1 
+11120 38880 
+   
+        0     1
+  0  2363 22637
+  1  8757 16243
+
+    1     2     3 
+17554 14998 17448 
+   
+        1     2     3
+  0 11259  7435  6306
+  1  6295  7563 11142
+
+    1     2     3 
+ 4970 14884 30146 
+[1] 50000
+[1] 70.224
+[1] 13.67709
+[1] 50000
+[1] 65.52559
+[1] 13.59008
+[1] 50000
+[1] 0.11018
+[1] 0.3131171
+[1] 50000
+[1] 0.51824
+[1] 0.4996722
+   
+       1    2    3    4    5    6    7    8    9   10
+  1  103  139  177  209  251  294  485  794 1013 1505
+  2  296  414  483  633  762  920 1477 2417 2998 4484
+  3  601  847 1140 1358 1587 1786 3038 4789 5989 9011
+[1] 0.010 0.025 0.050 0.075 0.090 0.100
+[1] 0.090 0.075 0.050 0.025 0.010 0.000
+[1]  500 1250 2500 3750 4500 5000
+[1] 4500 3750 2500 1250  500    0
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  10.32   18.34   20.25   20.30   22.17   31.43 
+
+    0     1 
+11459 38541 
+
+    1     2     3 
+16126 15413 18461 
+
+    1     2     3 
+ 5404 14929 29667 
+null device 
+          1 
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  20.73   61.97   71.13   71.08   80.00  126.52 
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  15.71   57.50   66.37   66.47   75.35  127.76 
+
+    0     1 
+44118  5882 
+
+    0     1 
+22217 27783 
+null device 
+          1 
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  7.092  17.949  19.995  19.993  22.020  31.431 
+
+    0     1 
+11120 38880 
+
+    1     2     3 
+17554 14998 17448 
+
+    1     2     3 
+ 4970 14884 30146 
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  12.36   60.96   70.24   70.22   79.39  126.52 
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  8.579  56.289  65.494  65.526  74.750 127.759 
+
+    0     1 
+44491  5509 
+
+    0     1 
+24088 25912 
+null device 
+          1 
+null device 
+          1 
