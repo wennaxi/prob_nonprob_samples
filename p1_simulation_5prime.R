@@ -350,32 +350,36 @@ if (ps == "No") {
 #list(cbind(data.frame(svymean(~Y1+Y2+Y3+Y4, dstrats)), data.frame(svymean(~Y1+Y2+Y3+Y4, jkstrats))))
 
 
-Y1.mean = data.frame(svymean(~Y1, dstrats))[, 1]
-Y1.se = data.frame(svymean(~Y1, dstrats))[, 2]
+Y1.mean = data.frame(svymean(~Y1, dstrats, deff = TRUE))[, 1]
+Y1.se = data.frame(svymean(~Y1, dstrats, deff = TRUE))[, 2]
+Y1.deff = data.frame(svymean(~Y1, dstrats, deff = TRUE))[, 3]
 Y1.95ci = ifelse(mean(population$Y1) >= Y1.mean - qnorm(.975) * Y1.se && 
                  mean(population$Y1) <= Y1.mean + qnorm(.975) * Y1.se, 
                  1, 0)
 
-Y2.mean = data.frame(svymean(~Y2, dstrats))[, 1]
-Y2.se = data.frame(svymean(~Y2, dstrats))[, 2]
+Y2.mean = data.frame(svymean(~Y2, dstrats, deff = TRUE))[, 1]
+Y2.se = data.frame(svymean(~Y2, dstrats, deff = TRUE))[, 2]
+Y2.deff = data.frame(svymean(~Y2, dstrats, deff = TRUE))[, 3]
 Y2.95ci = ifelse(mean(population$Y2) >= Y2.mean - qnorm(.975) * Y2.se && 
                  mean(population$Y2) <= Y2.mean + qnorm(.975) * Y2.se, 
                  1, 0)
 
-Y3.mean = data.frame(svymean(~Y3, dstrats))[, 1]
-Y3.se = data.frame(svymean(~Y3, dstrats))[, 2]
+Y3.mean = data.frame(svymean(~Y3, dstrats, deff = TRUE))[, 1]
+Y3.se = data.frame(svymean(~Y3, dstrats, deff = TRUE))[, 2]
+Y3.deff = data.frame(svymean(~Y3, dstrats, deff = TRUE))[, 3]
 Y3.95ci = ifelse(mean(population$Y3) >= Y3.mean - qnorm(.975) * Y3.se && 
                  mean(population$Y3) <= Y3.mean + qnorm(.975) * Y3.se, 
                  1, 0)
 
-Y4.mean = data.frame(svymean(~Y4, dstrats))[, 1]
-Y4.se = data.frame(svymean(~Y4, dstrats))[, 2]
+Y4.mean = data.frame(svymean(~Y4, dstrats, deff = TRUE))[, 1]
+Y4.se = data.frame(svymean(~Y4, dstrats, deff = TRUE))[, 2]
+Y4.deff = data.frame(svymean(~Y4, dstrats, deff = TRUE))[, 3]
 Y4.95ci = ifelse(mean(population$Y4) >= Y4.mean - qnorm(.975) * Y4.se && 
                  mean(population$Y4) <= Y4.mean + qnorm(.975) * Y4.se, 
                  1, 0)
 
-list(cbind(Y1.mean, Y1.se, Y1.95ci, Y2.mean, Y2.se, Y2.95ci, 
-           Y3.mean, Y3.se, Y3.95ci, Y4.mean, Y4.se, Y4.95ci
+list(cbind(Y1.mean, Y1.se, Y1.95ci, Y1.deff, Y2.mean, Y2.se, Y2.95ci, Y2.deff,
+           Y3.mean, Y3.se, Y3.95ci, Y3.deff, Y4.mean, Y4.se, Y4.95ci, Y4.deff
            ))
 
 ####################3d variance estimation#################### 
@@ -433,11 +437,11 @@ stopCluster(cl)
 
 
 
-results = array(NA, dim = c(3, 12, nsim))
+results = array(NA, dim = c(3, 16, nsim))
 
 for (n in 1:nsim) {
   for (i in 1:3) {
-    results[i, , n] = matrix(unlist(result[n][[1]][[i]]), nrow = 1, ncol = 12)
+    results[i, , n] = matrix(unlist(result[n][[1]][[i]]), nrow = 1, ncol = 16)
     
   }
 }
@@ -451,27 +455,25 @@ for (n in 1:nsim) {
 
 
 table.main = apply(results, c(1,2), mean)
-table.mcse = apply(results[, c(1, 4, 7, 10), ], c(1,2), sd)
-table.sdse = apply(results[, c(2, 5, 8, 11), ], c(1,2), sd)
+table.mcse = apply(results[, c(1, 5, 9, 13), ], c(1,2), sd)
+table.sdse = apply(results[, c(2, 6, 10, 14), ], c(1,2), sd)
+table.sddeff = apply(results[, c(4, 8, 12, 16), ], c(1,2), sd)
 table.mse = cbind(rowMeans((mean(population$Y1) - results[,1,])^2),
-                  rowMeans((mean(population$Y2) - results[,4,])^2),
-                  rowMeans((mean(population$Y3) - results[,7,])^2),
-                  rowMeans((mean(population$Y4) - results[,10,])^2))
-
-# cbind(table.main[,1:2], table.mcse[,1], table.mse[,1], table.main[,3:4], table.mcse[,2], table.mse[,2], 
-#       table.main[,5:6], table.mcse[,3], table.mse[,3], table.main[,7:8], table.mcse[,4], table.mse[,4])
-
+                  rowMeans((mean(population$Y2) - results[,5,])^2),
+                  rowMeans((mean(population$Y3) - results[,9,])^2),
+                  rowMeans((mean(population$Y4) - results[,13,])^2))
 table.bias = cbind((table.main[,1] - mean(population$Y1)) / mean(population$Y1) * 100,
-                   (table.main[,4] - mean(population$Y2)) / mean(population$Y2) * 100,
-                   (table.main[,7] - mean(population$Y3)) / mean(population$Y3) * 100,
-                   (table.main[,10] - mean(population$Y4)) / mean(population$Y4) * 100)
+                   (table.main[,5] - mean(population$Y2)) / mean(population$Y2) * 100,
+                   (table.main[,9] - mean(population$Y3)) / mean(population$Y3) * 100,
+                   (table.main[,13] - mean(population$Y4)) / mean(population$Y4) * 100)
 
 
-cbind(table.main[,1], table.bias[,1], table.main[,2], table.main[,3] * 100, table.mcse[,1], table.sdse[,1], table.mse[,1], 
-      table.main[,4], table.bias[,2], table.main[,5], table.main[,6] * 100, table.mcse[,2], table.sdse[,2], table.mse[,2])
+cbind(table.main[,1], table.bias[,1], table.main[,2], table.main[,3] * 100, table.mcse[,1], table.sdse[,1], table.mse[,1], table.main[,4],
+      table.main[,5], table.bias[,2], table.main[,6], table.main[,7] * 100, table.mcse[,2], table.sdse[,2], table.mse[,2], table.main[,8])
 
-cbind(table.main[,7], table.bias[,3], table.main[,8], table.main[,9] * 100, table.mcse[,3], table.sdse[,3], table.mse[,3], 
-      table.main[,10], table.bias[,4], table.main[,11], table.main[,12] * 100, table.mcse[,4], table.sdse[,4], table.mse[,4])
+cbind(table.main[,9], table.bias[,3], table.main[,10], table.main[,11] * 100, table.mcse[,3], table.sdse[,3], table.mse[,3], table.main[,12],
+      table.main[,13], table.bias[,4], table.main[,14], table.main[,15] * 100, table.mcse[,4], table.sdse[,4], table.mse[,4], table.main[,16])
+
 
 
 #Truth in Population
