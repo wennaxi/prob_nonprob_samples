@@ -54,7 +54,7 @@ x4.3 = ifelse(population$X4 == 3, 1, 0)
 population$Y1 = rnorm(n = N, mean = 1 + 2 * population$S1 + 3 * population$X1 + 4 * population$X2 + 5 * x4.2 + 6 * x4.3, sd = 10)
 population$Y2 = rnorm(n = N, mean = 1 + 2 * population$S1 + 3 * population$X1 + 4 * population$X2 + .5 * x4.2 + .6 * x4.3, sd = 10)
 
-logit.prob = - 5 + .2 * population$S1 + .3 * population$X1 - .4 * population$X2 - .5 * x3.2 - .6 * x3.3 - 3 * x4.2 - 4 * x4.3
+logit.prob = - 2 + .2 * population$S1 + .3 * population$X1 - .4 * population$X2 - .5 * x3.2 - .6 * x3.3 - 3 * x4.2 - 4 * x4.3
 mean(logit.prob)
 prob = exp(logit.prob) / (1 + exp(logit.prob))
 mean(prob)
