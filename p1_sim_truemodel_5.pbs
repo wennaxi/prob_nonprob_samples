@@ -1,0 +1,13 @@
+#!/bin/bash
+#PBS -l walltime=35:00:00
+#PBS -l nodes=1:ppn=20,mem=64GB
+#PBS -N p1_sim_truemodel_5
+#PBS -j oe 
+#PBS -m abe
+#PBS -M xi.34@osu.edu
+
+
+#COMMANDS TO RUN
+module load intel/16.0.3 
+module load R/3.5.0
+Rscript /home/xi.34/p1_simulation_truemodel_5.R
