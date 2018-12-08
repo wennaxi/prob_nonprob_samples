@@ -363,12 +363,12 @@ if (wt == 1) {
   sample_all = sample_all[, !(names(sample_all) %in% drop)]
   sample_all = rename(sample_all, weight = weight_new)
   
-  # summary(sample_all$weight)
-  for (i in 1:dim(sample_all)[1]) {
-    if (sample_all$weight[i] < 1) {
-      sample_all$weight[i] = 1
-    }
-  }
+  # # summary(sample_all$weight)
+  # for (i in 1:dim(sample_all)[1]) {
+  #   if (sample_all$weight[i] < 1) {
+  #     sample_all$weight[i] = 1
+  #   }
+  # }
 
   
   sample_prob = sample_all[which(sample_all$Z == 0), ]
