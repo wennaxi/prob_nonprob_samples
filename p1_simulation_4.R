@@ -5,8 +5,6 @@ rm(list = ls())
 
 
 library(dplyr)
-# library(mpr)
-# library(betareg)
 library(survey)
 
 library(foreach)
@@ -373,6 +371,13 @@ if (wt == 1) {
   
   sample_prob = sample_all[which(sample_all$Z == 0), ]
   sample_nonprob = sample_all[which(sample_all$Z == 1), ]
+} else if (wt == 5) {
+  ####Weight 5 -- Prob sample only
+  w1 = data.frame(sample_prob %>%
+                    count(S2) %>%
+                    mutate(weight =  table(population$S2) / n))
+  sample_all = merge(sample_prob, w1, by = 'S2')[, -15]
+  sample_prob = sample_all
 }
 ####################3a pseudo weight#################### 
 
@@ -592,11 +597,16 @@ run.sim = function(npprob) {
     temp19 = sim(pprob = npprob, wt = 4, wt_norm = "Regular", ps = "No")
     temp20 = sim(pprob = npprob, wt = 4, wt_norm = "Regular", ps = "External")
     temp21 = sim(pprob = npprob, wt = 4, wt_norm = "Regular", ps = "No External")
+    
+    temp22 = sim(pprob = npprob, wt = 5, wt_norm = "No", ps = "No")
+    temp23 = sim(pprob = npprob, wt = 5, wt_norm = "No", ps = "External")
+    temp24 = sim(pprob = npprob, wt = 5, wt_norm = "No", ps = "No External")
 
     list(temp1, temp2, temp3, 
          temp4, temp5, temp6, temp7, temp8, temp9, 
          temp10, temp11, temp12, temp13, temp14, temp15, 
-         temp16, temp17, temp18, temp19, temp20, temp21
+         temp16, temp17, temp18, temp19, temp20, temp21,
+         temp22, temp23, temp24
          )
     #list(temp1, temp2) #test
 }
@@ -634,10 +644,10 @@ stopCluster(cl)
 
 
 
-results = array(NA, dim = c(21, 16, nsim))
+results = array(NA, dim = c(24, 16, nsim))
 
 for (n in 1:nsim) {
-  for (i in 1:21) {
+  for (i in 1:24) {
     results[i, , n] = matrix(unlist(result[n][[1]][[i]]), nrow = 1, ncol = 16)
     
   }
